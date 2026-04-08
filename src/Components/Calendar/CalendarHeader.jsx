@@ -22,7 +22,7 @@ export default function CalendarHeader({
   prevMonth,
 }) {
   return (
-    <div className="relative w-full h-[280px] md:h-[340px] overflow-hidden rounded-2xl shadow-lg">
+    <div className="relative w-full h-[280px] md:h-[340px] overflow-hidden rounded-2xl">
 
       <motion.img
         key={currentDate.getMonth()}
