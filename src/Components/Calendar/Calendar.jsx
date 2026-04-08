@@ -8,7 +8,7 @@ export default function Calendar() {
   const prevMonth = () => setCurrentDate(subMonths(currentDate, 1));
   return (
     <>
-      <div className="max-w-md mx-auto bg-white shadow-xl rounded-xl overflow-hidden flex flex-col">
+      <div className="w-[540px] mx-auto bg-white shadow-xl rounded-xl overflow-hidden flex flex-col">
         <CalendarHeader currentDate={currentDate}
         nextMonth={nextMonth}
         prevMonth={prevMonth} />

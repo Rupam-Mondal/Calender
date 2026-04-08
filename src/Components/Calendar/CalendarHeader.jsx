@@ -22,7 +22,7 @@ export default function CalendarHeader({
   prevMonth,
 }) {
   return (
-    <div className="relative w-full h-[280px] md:h-[320px] overflow-hidden rounded-2xl shadow-lg">
+    <div className="relative w-full h-[280px] md:h-[340px] overflow-hidden rounded-2xl shadow-lg">
 
       <motion.img
         key={currentDate.getMonth()}
@@ -31,18 +31,18 @@ export default function CalendarHeader({
         initial={{ scale: 1.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-center"
       />
 
       
       <div className="absolute inset-0 bg-black/30" /> 
 
       
-      <div className="absolute bottom-0 left-0 w-full h-36 md:h-48">
+      <div className="absolute bottom-0 left-0 w-full h-36 md:h-20">
 
 
         <div className="absolute bottom-0 left-0 w-full h-full bg-white
-          [clip-path:polygon(0_100%,100%_100%,100%_40%,65%_60%,35%_60%,0_40%)]" />
+          " />
 
         <div className="absolute bottom-0 right-0 w-[65%] h-full bg-gradient-to-r text-black 
            flex items-end justify-end p-4">
