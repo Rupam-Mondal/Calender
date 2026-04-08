@@ -39,12 +39,12 @@ export default function CalendarHeader({
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-      <div className="absolute bottom-0 w-full bg-white/95 px-4 py-3 flex justify-end">
+      <div className="absolute bottom-3 w-full  px-4 py-3 flex justify-end">
         <div className="text-right">
-          <p className="text-xs text-gray-500">
+          <p className="text-xl text-white">
             {format(currentDate, "yyyy")}
           </p>
-          <h1 className="text-xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-white">
             {format(currentDate, "MMMM")}
           </h1>
         </div>
@@ -52,7 +52,7 @@ export default function CalendarHeader({
 
       <button
         onClick={prevMonth}
-        className="absolute left-4 top-1/2 -translate-y-1/2 
+        className="absolute cursor-pointer left-4 top-1/2 -translate-y-1/2 
         bg-white/20 hover:bg-white/40 border border-white/30 text-white 
         w-9 h-9 rounded-full flex items-center justify-center 
         transition-all shadow-md"
@@ -62,7 +62,7 @@ export default function CalendarHeader({
 
       <button
         onClick={nextMonth}
-        className="absolute right-4 top-1/2 -translate-y-1/2 
+        className="absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 
         bg-white/20 hover:bg-white/40 border border-white/30 text-white 
         w-9 h-9 rounded-full flex items-center justify-center 
         transition-all shadow-md"
