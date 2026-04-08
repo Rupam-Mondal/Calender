@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const images = {
   0: "/images/jan.jpg",
@@ -22,66 +22,53 @@ export default function CalendarHeader({
   prevMonth,
 }) {
   return (
-    <div className="relative w-full h-[280px] md:h-[340px] overflow-hidden rounded-2xl">
+    <div className="relative w-full h-[220px] md:h-[260px] overflow-hidden">
 
-      <motion.img
-        key={currentDate.getMonth()}
-        src={images[currentDate.getMonth()]}
-        alt="calendar"
-        initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="w-full h-full object-center"
-      />
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={currentDate.getMonth()}
+          src={images[currentDate.getMonth()]}
+          alt="calendar"
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{ duration: 0.4 }}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+      </AnimatePresence>
 
-      
-      <div className="absolute inset-0 bg-black/30" /> 
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-      
-      <div className="absolute bottom-0 left-0 w-full h-36 md:h-20">
-
-
-        <div className="absolute bottom-0 left-0 w-full h-full bg-white
-          " />
-
-        <div className="absolute bottom-0 right-0 w-[65%] h-full bg-gradient-to-r text-black 
-           flex items-end justify-end p-4">
-
-          <div className="text-black text-right">
-            <p className="text-sm opacity-80">
-              {format(currentDate, "yyyy")}
-            </p>
-            <h1 className="text-2xl font-bold tracking-wide">
-              {format(currentDate, "MMMM").toUpperCase()}
-            </h1>
-          </div>
+      <div className="absolute bottom-0 w-full bg-white/95 px-4 py-3 flex justify-end">
+        <div className="text-right">
+          <p className="text-xs text-gray-500">
+            {format(currentDate, "yyyy")}
+          </p>
+          <h1 className="text-xl font-bold text-gray-900">
+            {format(currentDate, "MMMM")}
+          </h1>
         </div>
       </div>
 
-      
       <button
         onClick={prevMonth}
         className="absolute left-4 top-1/2 -translate-y-1/2 
-        backdrop-blur-md bg-white/20 hover:bg-white/40 
-        border border-white/30 text-white 
-        w-10 h-10 rounded-full flex items-center justify-center 
-        transition-all duration-300 shadow-md"
+        bg-white/20 hover:bg-white/40 border border-white/30 text-white 
+        w-9 h-9 rounded-full flex items-center justify-center 
+        transition-all shadow-md"
       >
-        <span className="text-lg">‹</span>
+        ‹
       </button>
 
-      
       <button
         onClick={nextMonth}
         className="absolute right-4 top-1/2 -translate-y-1/2 
-        backdrop-blur-md bg-white/20 hover:bg-white/40 
-        border border-white/30 text-white 
-        w-10 h-10 rounded-full flex items-center justify-center 
-        transition-all duration-300 shadow-md"
+        bg-white/20 hover:bg-white/40 border border-white/30 text-white 
+        w-9 h-9 rounded-full flex items-center justify-center 
+        transition-all shadow-md"
       >
-        <span className="text-lg">›</span>
+        ›
       </button>
-
     </div>
   );
 }
