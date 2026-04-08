@@ -1,10 +1,11 @@
-import Calender from "./Components/Calender/Calender";
+import Calendar from "./Components/Calendar/Calendar";
+
 
 function App(){
   return (
     <>
       <div className="h-screen w-full flex items-center justify-center">
-          <Calender />
+          <Calendar />
       </div>
     </>
   )
