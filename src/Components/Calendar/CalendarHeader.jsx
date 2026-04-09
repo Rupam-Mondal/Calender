@@ -16,13 +16,9 @@ const images = {
   11: "/images/dec.jpg",
 };
 
-export default function CalendarHeader({
-  currentDate,
-  nextMonth,
-  prevMonth,
-}) {
+export default function CalendarHeader({ currentDate, nextMonth, prevMonth }) {
   return (
-    <div className="relative w-full h-[220px] md:h-[260px] overflow-hidden">
+    <div className="relative w-full h-[220px] md:h-[230px] overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.img
           key={currentDate.getMonth()}
@@ -40,9 +36,7 @@ export default function CalendarHeader({
 
       <div className="absolute bottom-3 w-full px-4 py-3 flex justify-end">
         <div className="text-right">
-          <p className="text-xl text-white">
-            {format(currentDate, "yyyy")}
-          </p>
+          <p className="text-xl text-white">{format(currentDate, "yyyy")}</p>
           <h1 className="text-2xl font-bold text-white">
             {format(currentDate, "MMMM")}
           </h1>

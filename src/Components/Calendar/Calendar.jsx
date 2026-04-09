@@ -11,8 +11,16 @@ export default function Calendar() {
   const prevMonth = () => setCurrentDate(subMonths(currentDate, 1));
 
   return (
-    <div className="w-full flex justify-center px-4">
-      <div className="w-full max-w-[720px] rounded-2xl overflow-hidden shadow-xl bg-white">
+    <div className="w-full flex justify-center items-center px-4">
+      <div className="w-full relative max-w-[720px] rounded-2xl  shadow-xl bg-white">
+
+        <div className="absolute -top-10 md:-top-12 z-50 w-full h-20">
+          <img
+            src="/images/spiral_transparent.png"
+            className="w-full h-full object-cover"
+            alt="spiral"
+          />
+        </div>
         <CalendarHeader
           currentDate={currentDate}
           nextMonth={nextMonth}

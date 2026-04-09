@@ -25,18 +25,18 @@ export default function CalendarGrid({ currentDate }) {
   }
 
   return (
-    <div className="w-full bg-white px-3 py-5 box-border">
-      <div className="grid grid-cols-7 mb-3 text-center text-gray-400 text-xs font-semibold">
+    <div className="w-full bg-white px-3  box-border py-4">
+      <div className="grid grid-cols-7 mb-2 text-center text-gray-400 text-xs font-semibold">
         {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
           <div key={d}>{d}</div>
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-2 text-center">
+      <div className="grid grid-cols-7 gap-1 text-center">
         {days.map((dayItem, i) => (
           <div
             key={i}
-            className={`h-12 flex items-center justify-center text-sm ${
+            className={`h-10 flex items-center justify-center text-sm ${
               !isSameMonth(dayItem, monthStart)
                 ? "text-gray-300"
                 : "text-gray-800"
