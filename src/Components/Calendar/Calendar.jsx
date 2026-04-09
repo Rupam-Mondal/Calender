@@ -9,6 +9,11 @@ export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
 
+  const [range, setRange] = useState({
+    start: null,
+    end: null,
+  });
+
   const [notes, setNotes] = useState(() => {
     return JSON.parse(localStorage.getItem("notes")) || {};
   });
@@ -16,6 +21,16 @@ export default function Calendar() {
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
+
+  const getKey = () => {
+    if (range.start && range.end) {
+      return `${range.start.toDateString()}_${range.end.toDateString()}`;
+    }
+    if (selectedDate) {
+      return selectedDate.toDateString();
+    }
+    return "";
+  };
 
   const nextMonth = () => setCurrentDate(addMonths(currentDate, 1));
   const prevMonth = () => setCurrentDate(subMonths(currentDate, 1));
@@ -39,7 +54,6 @@ export default function Calendar() {
         />
 
         <div className="flex w-full">
-          
           <div className="flex-1">
             <AnimatePresence mode="wait">
               <motion.div
@@ -53,6 +67,8 @@ export default function Calendar() {
                   currentDate={currentDate}
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
+                  range={range}
+                  setRange={setRange}
                   notes={notes}
                 />
               </motion.div>
@@ -61,10 +77,11 @@ export default function Calendar() {
 
           <NotePopup
             selectedDate={selectedDate}
+            range={range}
             notes={notes}
             setNotes={setNotes}
+            getKey={getKey}
           />
-
         </div>
       </div>
     </div>

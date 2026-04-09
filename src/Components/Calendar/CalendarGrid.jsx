@@ -13,6 +13,8 @@ export default function CalendarGrid({
   currentDate,
   selectedDate,
   setSelectedDate,
+  range,
+  setRange,
   notes,
 }) {
   const monthStart = startOfMonth(currentDate);
@@ -32,6 +34,18 @@ export default function CalendarGrid({
   const isSameDay = (d1, d2) =>
     d1 && d2 && d1.toDateString() === d2.toDateString();
 
+  const handleClick = (dayItem) => {
+    if (!range.start || (range.start && range.end)) {
+      setRange({ start: dayItem, end: null });
+    } else if (dayItem < range.start) {
+      setRange({ start: dayItem, end: range.start });
+    } else {
+      setRange({ ...range, end: dayItem });
+    }
+
+    setSelectedDate(dayItem);
+  };
+
   return (
     <div className="w-full bg-white px-3 box-border py-4">
       <div className="grid grid-cols-7 mb-2 text-center text-gray-400 text-xs font-semibold">
@@ -43,6 +57,19 @@ export default function CalendarGrid({
       <div className="grid grid-cols-7 gap-1 text-center">
         {days.map((dayItem, i) => {
           const isSelected = isSameDay(dayItem, selectedDate);
+
+          const isStart =
+            range.start && isSameDay(dayItem, range.start);
+
+          const isEnd =
+            range.end && isSameDay(dayItem, range.end);
+
+          const isInRange =
+            range.start &&
+            range.end &&
+            dayItem >= range.start &&
+            dayItem <= range.end;
+
           const hasNote = notes[dayItem.toDateString()];
 
           return (
@@ -55,21 +82,25 @@ export default function CalendarGrid({
               }`}
             >
               <div
-                onClick={() => setSelectedDate(dayItem)}
+                onClick={() => handleClick(dayItem)}
                 className={`w-10 h-10 flex flex-col items-center justify-center rounded-full transition-all duration-200
                   ${
-                    isSelected
-                      ? "bg-blue-300 text-white font-bold scale-105"
+                    isStart || isEnd
+                      ? "bg-black text-white"
+                      : isInRange
+                      ? "bg-gray-200 text-black"
+                      : isSelected
+                      ? "bg-blue-500 text-white"
                       : isToday(dayItem)
-                      ? "bg-blue-500 text-white font-semibold"
-                      : "hover:bg-gray-100 hover:scale-105"
+                      ? "bg-blue-500 text-white"
+                      : "hover:bg-gray-100"
                   }
                 `}
               >
                 {format(dayItem, "d")}
 
                 {hasNote && (
-                  <div className="w-1 h-1 bg-black rounded-full mt-1"></div>
+                  <div className="w-1.5 h-1.5 bg-black rounded-full mt-1"></div>
                 )}
               </div>
             </div>
