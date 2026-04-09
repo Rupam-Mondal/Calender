@@ -23,7 +23,6 @@ export default function CalendarHeader({
 }) {
   return (
     <div className="relative w-full h-[220px] md:h-[260px] overflow-hidden">
-
       <AnimatePresence mode="wait">
         <motion.img
           key={currentDate.getMonth()}
@@ -32,14 +31,14 @@ export default function CalendarHeader({
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
       </AnimatePresence>
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-      <div className="absolute bottom-3 w-full  px-4 py-3 flex justify-end">
+      <div className="absolute bottom-3 w-full px-4 py-3 flex justify-end">
         <div className="text-right">
           <p className="text-xl text-white">
             {format(currentDate, "yyyy")}

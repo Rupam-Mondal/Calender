@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { addMonths, subMonths } from "date-fns";
+import { motion, AnimatePresence } from "framer-motion";
 import CalendarHeader from "./CalendarHeader";
 import CalendarGrid from "./CalendarGrid";
 
@@ -17,7 +18,18 @@ export default function Calendar() {
           nextMonth={nextMonth}
           prevMonth={prevMonth}
         />
-        <CalendarGrid currentDate={currentDate} />
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentDate.getMonth()}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <CalendarGrid currentDate={currentDate} />
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
