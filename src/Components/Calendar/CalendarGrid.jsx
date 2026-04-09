@@ -9,7 +9,12 @@ import {
   isToday,
 } from "date-fns";
 
-export default function CalendarGrid({ currentDate, range, setRange }) {
+export default function CalendarGrid({
+  currentDate,
+  selectedDate,
+  setSelectedDate,
+  notes,
+}) {
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(monthStart);
 
@@ -24,16 +29,6 @@ export default function CalendarGrid({ currentDate, range, setRange }) {
     day = addDays(day, 1);
   }
 
-  const handleDateClick = (day) => {
-    if (!range.start || (range.start && range.end)) {
-      setRange({ start: day, end: null });
-    } else if (day < range.start) {
-      setRange({ start: day, end: range.start });
-    } else {
-      setRange({ ...range, end: day });
-    }
-  };
-
   const isSameDay = (d1, d2) =>
     d1 && d2 && d1.toDateString() === d2.toDateString();
 
@@ -47,32 +42,24 @@ export default function CalendarGrid({ currentDate, range, setRange }) {
 
       <div className="grid grid-cols-7 gap-1 text-center">
         {days.map((dayItem, i) => {
-          const isStart = isSameDay(dayItem, range.start);
-          const isEnd = isSameDay(dayItem, range.end);
-
-          const isInRange =
-            range.start &&
-            range.end &&
-            dayItem >= range.start &&
-            dayItem <= range.end;
+          const isSelected = isSameDay(dayItem, selectedDate);
+          const hasNote = notes[dayItem.toDateString()];
 
           return (
             <div
               key={i}
-              className={`h-10 flex cursor-pointer items-center justify-center text-sm ${
+              className={`h-10 flex items-center justify-center text-sm ${
                 !isSameMonth(dayItem, monthStart)
                   ? "text-gray-300"
                   : "text-gray-800"
               }`}
             >
               <div
-                onClick={() => handleDateClick(dayItem)}
-                className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200
+                onClick={() => setSelectedDate(dayItem)}
+                className={`w-10 h-10 flex flex-col items-center justify-center rounded-full transition-all duration-200
                   ${
-                    isStart || isEnd
-                      ? "bg-blue-600 text-white font-bold scale-105"
-                      : isInRange
-                      ? "bg-blue-100 text-blue-700"
+                    isSelected
+                      ? "bg-blue-300 text-white font-bold scale-105"
                       : isToday(dayItem)
                       ? "bg-blue-500 text-white font-semibold"
                       : "hover:bg-gray-100 hover:scale-105"
@@ -80,6 +67,10 @@ export default function CalendarGrid({ currentDate, range, setRange }) {
                 `}
               >
                 {format(dayItem, "d")}
+
+                {hasNote && (
+                  <div className="w-1 h-1 bg-black rounded-full mt-1"></div>
+                )}
               </div>
             </div>
           );
