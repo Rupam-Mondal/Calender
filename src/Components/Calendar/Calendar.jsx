@@ -53,7 +53,7 @@ export default function Calendar() {
           prevMonth={prevMonth}
         />
 
-        <div className="flex w-full">
+        <div className="flex flex-col md:flex-row w-full">
           <div className="flex-1">
             <AnimatePresence mode="wait">
               <motion.div
